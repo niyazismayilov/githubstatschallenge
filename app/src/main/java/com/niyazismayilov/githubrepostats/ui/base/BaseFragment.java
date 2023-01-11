@@ -5,24 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-
-
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niyazismayilov.githubrepostats.ApplicationClass;
-import com.niyazismayilov.githubrepostats.R;
 import com.niyazismayilov.githubrepostats.di.component.DaggerFragmentComponent;
 import com.niyazismayilov.githubrepostats.di.component.FragmentComponent;
 import com.niyazismayilov.githubrepostats.di.module.FragmentBuilderModule;
-import com.niyazismayilov.githubrepostats.utils.ViewModelProviderFactory;
 
 import javax.inject.Inject;
 
@@ -33,13 +25,11 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     private View mRootView;
     private T mViewDataBinding;
 
-
     @Inject
     public
     V mViewModel;
 
     public abstract int getBindingVariable();
-
 
 
     public abstract
@@ -56,15 +46,17 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
             activity.onFragmentAttached();
         }
     }
+
     public abstract void performDependencyInjection(FragmentComponent buildComponent);
 
 
     private FragmentComponent getBuildComponent() {
         return DaggerFragmentComponent.builder()
-                .appComponent(((ApplicationClass)(getContext().getApplicationContext())).appComponent)
+                .appComponent(((ApplicationClass) (getContext().getApplicationContext())).appComponent)
                 .fragmentBuilderModule(new FragmentBuilderModule(this))
                 .build();
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         performDependencyInjection(getBuildComponent());
@@ -88,7 +80,7 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewDataBinding.setVariable(getBindingVariable(),mViewModel);
+        mViewDataBinding.setVariable(getBindingVariable(), mViewModel);
         mViewDataBinding.setLifecycleOwner(this);
         mViewDataBinding.executePendingBindings();
     }
@@ -99,13 +91,6 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
 
     public T getViewDataBinding() {
         return mViewDataBinding;
-    }
-
-    public  void showRepoItemDetail() {
-        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
-        bottomSheetDialog.setContentView(R.layout.repo_item_bottom_sheet);
-        bottomSheetDialog.show();
-
     }
 
     public interface Callback {

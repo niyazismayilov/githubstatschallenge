@@ -8,9 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.niyazismayilov.githubrepostats.data.IDataManager;
 import com.niyazismayilov.githubrepostats.data.Resource;
 import com.niyazismayilov.githubrepostats.data.local.CachedModel;
-import com.niyazismayilov.githubrepostats.data.model.request.RepoListRequest;
 import com.niyazismayilov.githubrepostats.data.model.response.RepoItem;
-import com.niyazismayilov.githubrepostats.data.model.response.RepoListResponse;
 import com.niyazismayilov.githubrepostats.data.model.response.RepoOwner;
 import com.niyazismayilov.githubrepostats.ui.base.BaseViewModel;
 
@@ -41,14 +39,12 @@ public class FavoriteListViewModel extends BaseViewModel {
                         .subscribe(response -> {
                             cachedModelList = response;
                             repoListResponseMutableLiveData.postValue(Resource.success(convertToDao(response)));
-                        }, throwable -> {
-                            repoListResponseMutableLiveData.postValue(Resource.error(throwable));
-                        }));
+                        }, throwable -> repoListResponseMutableLiveData.postValue(Resource.error(throwable))));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private List<RepoItem> convertToDao(List<CachedModel> response) {
-       return response.stream().map(item -> new RepoItem(item.getId(),item.getAvatar_url(),item.getDescription(),item.getName(),item.getStargazers_url(),new RepoOwner(item.getAvatar_url(),item.getStargazers_url()))).collect(Collectors.toList());
+        return response.stream().map(item -> new RepoItem(item.getId(), item.getDescription(), item.getName(), item.getStargazers_count(), item.getLanguage(), item.getForks(), item.getCreated_at(), new RepoOwner(item.getAvatar_url(), item.getLogin(), item.getHtml_url()))).collect(Collectors.toList());
     }
 
     public void removeFav(RepoItem model) {
@@ -61,8 +57,8 @@ public class FavoriteListViewModel extends BaseViewModel {
     }
 
     private CachedModel getCachedModel(RepoItem repoItem) {
-        for(CachedModel item : cachedModelList) {
-            if(item.getId() == repoItem.getId()) return  item;
+        for (CachedModel item : cachedModelList) {
+            if (item.getId() == repoItem.getId()) return item;
         }
         return null;
     }

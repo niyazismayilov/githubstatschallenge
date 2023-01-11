@@ -15,8 +15,20 @@ public class RepoItem {
     private String name;
 
     @Expose
-    @SerializedName("stargazers_url")
-    private String stargazers_url;
+    @SerializedName("stargazers_count")
+    private String stargazers_count;
+
+    @Expose
+    @SerializedName("language")
+    private String language;
+
+    @Expose
+    @SerializedName("forks")
+    private String forks;
+
+    @Expose
+    @SerializedName("created_at")
+    private String created_at;
 
 
     @Expose
@@ -32,8 +44,8 @@ public class RepoItem {
         return name;
     }
 
-    public String getStargazers_url() {
-        return stargazers_url;
+    public String getStars() {
+        return stargazers_count;
     }
 
     public int getId() {
@@ -44,11 +56,26 @@ public class RepoItem {
         return repoOwner;
     }
 
-    public RepoItem(int id,String avatar_url, String description, String name, String stargazers_url, RepoOwner repoOwner) {
-        this.id= id;
+    public RepoItem(int id, String description, String name, String stargazers_count, String language, String forks, String created_at, RepoOwner repoOwner) {
+        this.id = id;
         this.description = description;
         this.name = name;
-        this.stargazers_url = stargazers_url;
+        this.stargazers_count = stargazers_count;
+        this.language = language;
+        this.forks = forks;
+        this.created_at = created_at;
         this.repoOwner = repoOwner;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getForks() {
+        return forks;
+    }
+
+    public String getCreated_at() {
+        return created_at;
     }
 }

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Resource<T> {
-    // States, use enums if possible
+
     public static final int INITIAL = 0;
     public static final int LOADING = 1;
     public static final int SUCCESS = 2;

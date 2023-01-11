@@ -8,9 +8,10 @@ import javax.inject.Inject;
 public class AppDataManager implements IDataManager {
     private IApi iApi;
     private CachedRepository iCachedRepository;
+
     @Inject
-    public AppDataManager(IApi iApi,CachedRepository iCachedRepository) {
-        this.iApi=iApi;
+    public AppDataManager(IApi iApi, CachedRepository iCachedRepository) {
+        this.iApi = iApi;
         this.iCachedRepository = iCachedRepository;
     }
 

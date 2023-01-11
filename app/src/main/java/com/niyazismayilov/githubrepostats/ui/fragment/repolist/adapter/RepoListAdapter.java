@@ -1,4 +1,5 @@
 package com.niyazismayilov.githubrepostats.ui.fragment.repolist.adapter;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +34,6 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repo_rv_item, parent, false);
-
             return new ItemViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.repo_rv_item_loading, parent, false);
@@ -66,13 +66,19 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvItem;
+        TextView tvTitle;
+        TextView tvLogin;
+        TextView tvDescription;
+        TextView tvStar;
         ImageView ivAvatar;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvItem = itemView.findViewById(R.id.tv_name);
+            tvTitle = itemView.findViewById(R.id.tv_name);
+            tvLogin = itemView.findViewById(R.id.tvLogin);
+            tvDescription = itemView.findViewById(R.id.tv_subtitle);
+            tvStar = itemView.findViewById(R.id.tv_stars);
             ivAvatar = itemView.findViewById(R.id.iv_avatar);
 
         }
@@ -95,10 +101,16 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void populateItemRows(ItemViewHolder viewHolder, int position) {
 
         RepoItem item = mItemList.get(position);
-        viewHolder.tvItem.setText(item.getName());
+
+        viewHolder.tvTitle.setText(item.getName());
+        viewHolder.tvLogin.setText(item.getRepoOwner().getLogin());
+        viewHolder.tvDescription.setText(item.getDescription());
+        viewHolder.tvStar.setText(item.getStars());
+
         Glide.with(viewHolder.itemView)
                 .load(item.getRepoOwner().getAvatar_url())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.no_image)
                 .into(viewHolder.ivAvatar);
 
     }

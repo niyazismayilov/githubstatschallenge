@@ -8,7 +8,6 @@ import androidx.room.Query;
 
 import com.niyazismayilov.githubrepostats.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -23,7 +22,7 @@ interface CachedDao {
     @Delete
     Completable delete(CachedModel cachedModel);
 
-    @Query("SELECT * FROM "+ Constants.TABLE_FAVS)
+    @Query("SELECT * FROM " + Constants.TABLE_FAVS)
     Flowable<List<CachedModel>> getAllData();
 
 }

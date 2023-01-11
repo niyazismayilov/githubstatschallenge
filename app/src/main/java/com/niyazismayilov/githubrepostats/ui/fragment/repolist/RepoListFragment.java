@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -17,11 +21,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niyazismayilov.githubrepostats.BR;
 import com.niyazismayilov.githubrepostats.R;
 import com.niyazismayilov.githubrepostats.data.Resource;
 import com.niyazismayilov.githubrepostats.data.model.request.RepoListRequest;
+import com.niyazismayilov.githubrepostats.data.model.response.RepoItem;
 import com.niyazismayilov.githubrepostats.databinding.FragmentRepoListBinding;
 import com.niyazismayilov.githubrepostats.di.component.FragmentComponent;
 import com.niyazismayilov.githubrepostats.ui.base.BaseFragment;
@@ -29,9 +36,10 @@ import com.niyazismayilov.githubrepostats.ui.fragment.repolist.adapter.RepoListA
 import com.niyazismayilov.githubrepostats.utils.Constants;
 
 public class RepoListFragment extends BaseFragment<FragmentRepoListBinding, RepoListViewModel> implements AdapterView.OnItemSelectedListener {
-    private String[] sorting = {Constants.WEEKLY, Constants.MONTHLY, Constants.YEARLY};
+    private String[] sorting = {Constants.WEEKLY, Constants.MONTHLY, Constants.DAY};
+    public RepoListRequest repoListRequest;
     boolean isLoading = false;
-    RepoListRequest repoListRequest =new RepoListRequest("created:2017-05-20", "stars", "desc", 1);
+
     @Override
     public int getBindingVariable() {
         return BR.viewModel;
@@ -49,6 +57,7 @@ public class RepoListFragment extends BaseFragment<FragmentRepoListBinding, Repo
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        repoListRequest=new RepoListRequest(mViewModel.getLastDateTime(Constants.WEEKLY), "stars", "desc", 1);
         mViewModel.getRepoList(repoListRequest);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -62,17 +71,15 @@ public class RepoListFragment extends BaseFragment<FragmentRepoListBinding, Repo
     }
 
     private void setUpListeners() {
-        getViewDataBinding().reposListRecycler.setAdapter(new RepoListAdapter(mViewModel.cachedList, item -> mViewModel.addToFavorites(item)));
+        getViewDataBinding().reposListRecycler.setAdapter(new RepoListAdapter(mViewModel.cachedList, item -> showRepoItemDetail(item)));
         getViewDataBinding().btFavList.setOnClickListener(listener -> Navigation.findNavController(getView()).navigate(R.id.action_repoListFragment_to_favoriteListFragment));
         getViewDataBinding().etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO document why this method is empty
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO document why this method is empty
             }
 
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -119,24 +126,24 @@ public class RepoListFragment extends BaseFragment<FragmentRepoListBinding, Repo
         mViewModel.clearList();
         switch (sorting[i]) {
             case Constants.WEEKLY:
-                repoListRequest = new RepoListRequest("created:2017-05-20", "stars", "desc", 1);
+                repoListRequest.setCreatedAt(mViewModel.getLastDateTime(Constants.WEEKLY));
                 mViewModel.getRepoList(repoListRequest);
                 break;
             case Constants.MONTHLY:
-                repoListRequest =new RepoListRequest("created:2019-05-20", "stars", "desc", 1);
+                repoListRequest.setCreatedAt(mViewModel.getLastDateTime(Constants.MONTHLY));
                 mViewModel.getRepoList(repoListRequest);
                 break;
-            case Constants.YEARLY:
-                repoListRequest =new RepoListRequest("created:2020-05-20", "stars", "desc", 1);
+            case Constants.DAY:
+                repoListRequest.setCreatedAt(mViewModel.getLastDateTime(Constants.DAY));
                 mViewModel.getRepoList(repoListRequest);
                 break;
         }
     }
 
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
     }
+
     private void initScrollListener() {
         getViewDataBinding().reposListRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -162,5 +169,26 @@ public class RepoListFragment extends BaseFragment<FragmentRepoListBinding, Repo
 
 
     }
-
+    public  void showRepoItemDetail(RepoItem item) {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(R.layout.repo_item_bottom_sheet);
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_name)).setText(item.getName());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tvLogin)).setText(item.getRepoOwner().getLogin());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_subtitle)).setText(item.getDescription());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_stars)).setText(item.getStars());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_language)).setText(new StringBuilder().append(getString(R.string.language)).append(item.getLanguage()).toString());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_forks)).setText(new StringBuilder().append(getString(R.string.fork)).append(item.getForks()).toString());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_createDate)).setText(new StringBuilder().append(getString(R.string.created_at)).append(item.getCreated_at()).toString());
+        ((TextView)bottomSheetDialog.findViewById(R.id.tv_repoLink)).setText(new StringBuilder().append(getString(R.string.html_url)).append(item.getRepoOwner().getHtml_url()).toString());
+        ((Button) bottomSheetDialog.findViewById(R.id.bt_makeFav)).setOnClickListener(view ->{
+            mViewModel.addToFavorites(item);
+            Toast.makeText(getActivity(), getString(R.string.repo_added_info),Toast.LENGTH_LONG).show();
+        });
+        Glide.with(this)
+                .load(item.getRepoOwner().getAvatar_url())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.no_image)
+                .into((ImageView)bottomSheetDialog.findViewById(R.id.iv_avatar));
+        bottomSheetDialog.show();
+    }
 }

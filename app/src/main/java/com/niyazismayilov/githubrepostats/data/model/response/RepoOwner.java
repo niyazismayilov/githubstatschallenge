@@ -10,20 +10,29 @@ public class RepoOwner {
     private String avatar_url;
 
     @Expose
-    @SerializedName("stargazers_count")
-    private String stargazers_count;
+    @SerializedName("html_url")
+    private String html_url;
+
+    @Expose
+    @SerializedName("login")
+    private String login;
 
 
-    public RepoOwner(String avatar_url, String stargazers_count) {
+    public RepoOwner(String avatar_url, String login,String html_url) {
         this.avatar_url = avatar_url;
-        this.stargazers_count = stargazers_count;
+        this.login = login;
+        this.html_url = html_url;
     }
 
     public String getAvatar_url() {
         return avatar_url;
     }
 
-    public String getStargazers_count() {
-        return stargazers_count;
+    public String getLogin() {
+        return login;
+    }
+
+    public String getHtml_url() {
+        return html_url;
     }
 }

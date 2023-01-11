@@ -42,10 +42,12 @@ public class RepoListRequest {
     public int getPage() {
         return page;
     }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public void goNextPage() {
         page++;
-    }
-    public void setPage(int page) {
-        this.page = page;
     }
 }

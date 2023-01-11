@@ -16,7 +16,7 @@ import com.niyazismayilov.githubrepostats.ui.base.BaseActivity;
 import dagger.Provides;
 
 
-public class MainActivity extends BaseActivity<ActivityMainBinding,MainActivityViewModel> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivityViewModel> {
 
 
     @Override

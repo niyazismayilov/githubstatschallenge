@@ -1,6 +1,5 @@
 package com.niyazismayilov.githubrepostats.data.local;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -13,7 +12,6 @@ public interface CachedRepository {
     Completable delete(CachedModel cachedModel);
 
     Flowable<List<CachedModel>> getAllData();
-
 
 
 }
