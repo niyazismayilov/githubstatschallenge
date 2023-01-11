@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/fragment_repo_list.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/fragment_repo_list.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/repo_item_bottom_sheet.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/repo_item_bottom_sheet.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/repo_rv_item.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/repo_rv_item.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/fragment_fav_list.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/fragment_fav_list.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/repo_rv_item_loading.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/repo_rv_item_loading.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/activity_main.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/repo_rv_item.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-50:/layout/repo_rv_item.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/fav_item_bottom_sheet.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/fav_item_bottom_sheet.xml"
+    },
+    {
+        "merged": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-mergeDebugResources-47:/layout/content_main.xml",
+        "source": "/Users/niyazismayilov/.gradle/daemon/7.3.3/com.niyazismayilov.githubrepostats.app-main-50:/layout/content_main.xml"
+    }
+]

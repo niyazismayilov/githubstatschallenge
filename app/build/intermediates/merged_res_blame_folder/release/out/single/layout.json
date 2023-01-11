@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/fragment_repo_list.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/fragment_repo_list.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/activity_main.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/content_main.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/content_main.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/repo_rv_item_loading.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/repo_rv_item_loading.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/repo_item_bottom_sheet.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/repo_item_bottom_sheet.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/fav_item_bottom_sheet.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/fav_item_bottom_sheet.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/repo_rv_item.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/repo_rv_item.xml"
+    },
+    {
+        "merged": "com.niyazismayilov.githubrepostats.app-mergeReleaseResources-47:/layout/fragment_fav_list.xml",
+        "source": "com.niyazismayilov.githubrepostats.app-main-49:/layout/fragment_fav_list.xml"
+    }
+]
