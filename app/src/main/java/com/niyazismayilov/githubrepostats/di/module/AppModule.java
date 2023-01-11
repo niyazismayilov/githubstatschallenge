@@ -12,6 +12,7 @@ import com.niyazismayilov.githubrepostats.BuildConfig;
 import com.niyazismayilov.githubrepostats.data.AppDataManager;
 import com.niyazismayilov.githubrepostats.data.IDataManager;
 import com.niyazismayilov.githubrepostats.data.api.IApi;
+import com.niyazismayilov.githubrepostats.data.local.CachedRepository;
 import com.niyazismayilov.githubrepostats.utils.ViewModelProviderFactory;
 
 import java.util.concurrent.TimeUnit;
@@ -44,8 +45,8 @@ public class AppModule {
     }
 
     @Provides
-    IDataManager provideDataManager(IApi iApiMethod) {
-        return new AppDataManager(iApiMethod);
+    IDataManager provideDataManager(IApi iApiMethod, CachedRepository iCacheRepository) {
+        return new AppDataManager(iApiMethod,iCacheRepository);
     }
 
     @Provides

@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class RepoItem {
 
+    int id;
     @Expose
     @SerializedName("description")
     private String description;
@@ -35,7 +36,19 @@ public class RepoItem {
         return stargazers_url;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public RepoOwner getRepoOwner() {
         return repoOwner;
+    }
+
+    public RepoItem(int id,String avatar_url, String description, String name, String stargazers_url, RepoOwner repoOwner) {
+        this.id= id;
+        this.description = description;
+        this.name = name;
+        this.stargazers_url = stargazers_url;
+        this.repoOwner = repoOwner;
     }
 }

@@ -42,4 +42,10 @@ public class RepoListRequest {
     public int getPage() {
         return page;
     }
+    public void goNextPage() {
+        page++;
+    }
+    public void setPage(int page) {
+        this.page = page;
+    }
 }

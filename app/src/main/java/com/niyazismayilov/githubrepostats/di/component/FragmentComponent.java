@@ -1,7 +1,7 @@
 package com.niyazismayilov.githubrepostats.di.component;
 
 import com.niyazismayilov.githubrepostats.di.module.FragmentBuilderModule;
-import com.niyazismayilov.githubrepostats.di.module.FragmentScope;
+import com.niyazismayilov.githubrepostats.di.scope.FragmentScope;
 import com.niyazismayilov.githubrepostats.ui.fragment.favlist.FavoriteListFragment;
 import com.niyazismayilov.githubrepostats.ui.fragment.repolist.RepoListFragment;
 

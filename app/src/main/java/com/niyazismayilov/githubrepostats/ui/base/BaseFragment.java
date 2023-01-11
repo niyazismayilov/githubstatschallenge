@@ -16,7 +16,9 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.niyazismayilov.githubrepostats.ApplicationClass;
+import com.niyazismayilov.githubrepostats.R;
 import com.niyazismayilov.githubrepostats.di.component.DaggerFragmentComponent;
 import com.niyazismayilov.githubrepostats.di.component.FragmentComponent;
 import com.niyazismayilov.githubrepostats.di.module.FragmentBuilderModule;
@@ -99,6 +101,12 @@ public abstract class BaseFragment<T extends ViewDataBinding, V extends BaseView
         return mViewDataBinding;
     }
 
+    public  void showRepoItemDetail() {
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(R.layout.repo_item_bottom_sheet);
+        bottomSheetDialog.show();
+
+    }
 
     public interface Callback {
 

@@ -7,6 +7,7 @@ import com.niyazismayilov.githubrepostats.ApplicationClass;
 import com.niyazismayilov.githubrepostats.data.IDataManager;
 import com.niyazismayilov.githubrepostats.di.module.ActivityModule;
 import com.niyazismayilov.githubrepostats.di.module.AppModule;
+import com.niyazismayilov.githubrepostats.di.module.RoomModule;
 
 import javax.inject.Singleton;
 
@@ -15,7 +16,7 @@ import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
-@Component(modules = {AppModule.class, AndroidSupportInjectionModule.class})
+@Component(modules = {AppModule.class, AndroidSupportInjectionModule.class, RoomModule.class})
 public interface AppComponent {
 
     void inject(ApplicationClass app);

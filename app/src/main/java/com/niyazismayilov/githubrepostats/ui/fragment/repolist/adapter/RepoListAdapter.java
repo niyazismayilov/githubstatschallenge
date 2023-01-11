@@ -2,12 +2,15 @@ package com.niyazismayilov.githubrepostats.ui.fragment.repolist.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.niyazismayilov.githubrepostats.R;
 import com.niyazismayilov.githubrepostats.data.model.response.RepoItem;
 import java.util.List;
@@ -55,12 +58,6 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mItemList == null ? 0 : mItemList.size();
     }
 
-    /**
-     * The following method decides the type of ViewHolder to display in the RecyclerView
-     *
-     * @param position
-     * @return
-     */
     @Override
     public int getItemViewType(int position) {
         return mItemList.get(position) == null ? VIEW_TYPE_LOADING : VIEW_TYPE_ITEM;
@@ -70,11 +67,13 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private class ItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvItem;
+        ImageView ivAvatar;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvItem = itemView.findViewById(R.id.tv_name);
+            ivAvatar = itemView.findViewById(R.id.iv_avatar);
 
         }
     }
@@ -97,6 +96,10 @@ public class RepoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         RepoItem item = mItemList.get(position);
         viewHolder.tvItem.setText(item.getName());
+        Glide.with(viewHolder.itemView)
+                .load(item.getRepoOwner().getAvatar_url())
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(viewHolder.ivAvatar);
 
     }
     public interface OnItemClickListener {

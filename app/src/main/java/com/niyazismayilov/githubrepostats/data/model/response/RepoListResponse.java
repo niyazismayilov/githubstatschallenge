@@ -23,16 +23,3 @@ public class RepoListResponse {
     }
 }
 
-class RepoOwner {
-
-    @Expose
-    @SerializedName("avatar_url")
-    private String avatar_url;
-
-    @Expose
-    @SerializedName("stargazers_count")
-    private String stargazers_count;
-
-
-
-}

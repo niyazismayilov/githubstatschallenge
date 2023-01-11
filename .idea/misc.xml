@@ -7,7 +7,7 @@
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main2.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_fav_list.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_repo_list.xml" value="0.1744232177734375" />
+        <entry key="app/src/main/res/layout/fragment_repo_list.xml" value="0.22167205810546875" />
         <entry key="app/src/main/res/layout/repo_item_bottom_sheet.xml" value="0.2723785400390625" />
         <entry key="app/src/main/res/layout/repo_rv_item.xml" value="0.24738616943359376" />
         <entry key="app/src/main/res/layout/repo_rv_item_loading.xml" value="0.1480978260869565" />

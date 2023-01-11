@@ -1,5 +1,6 @@
 package com.niyazismayilov.githubrepostats.ui.fragment.favlist;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.niyazismayilov.githubrepostats.BR;
 import com.niyazismayilov.githubrepostats.R;
@@ -21,8 +23,7 @@ import com.niyazismayilov.githubrepostats.ui.fragment.repolist.RepoListViewModel
 import com.niyazismayilov.githubrepostats.ui.fragment.repolist.adapter.RepoListAdapter;
 import com.niyazismayilov.githubrepostats.utils.Constants;
 
-public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, FavoriteListViewModel> implements AdapterView.OnItemSelectedListener {
-    private String[] sorting = {Constants.WEEKLY, Constants.MONTHLY, Constants.YEARLY};
+public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, FavoriteListViewModel>  {
 
     @Override
     public int getBindingVariable() {
@@ -39,9 +40,10 @@ public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, F
         buildComponent.inject(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mViewModel.getRepoList(new RepoListRequest("created:2017-05-20", "stars", "desc", 1));
+        mViewModel.getFavList();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -49,7 +51,6 @@ public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, F
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setUpObservers();
-        setUpSpinner();
 
     }
 
@@ -57,7 +58,7 @@ public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, F
         mViewModel.repoListResponseMutableLiveData.observe(getViewLifecycleOwner(), result -> {
             switch (result.getType()) {
                 case Resource.SUCCESS:
-//                    getViewDataBinding().reposListRecycler.setAdapter(new RepoListAdapter(result.getData().getRepoItemList()));
+                   getViewDataBinding().reposListRecycler.setAdapter(new RepoListAdapter(result.getData(), item -> mViewModel.removeFav(item)));
                     break;
                 case Resource.ERROR:
                     break;
@@ -67,32 +68,4 @@ public class FavoriteListFragment extends BaseFragment<FragmentFavListBinding, F
         });
     }
 
-    private void setUpSpinner() {
-
-        getViewDataBinding().spinner.setOnItemSelectedListener(this);
-        ArrayAdapter spinnerAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, sorting);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        getViewDataBinding().spinner.setAdapter(spinnerAdapter);
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        switch (sorting[i]) {
-            case Constants.WEEKLY:
-                mViewModel.getRepoList(new RepoListRequest("created:2017-05-20", "stars", "desc", 1));
-                break;
-            case Constants.MONTHLY:
-                mViewModel.getRepoList(new RepoListRequest("created:2019-05-20", "stars", "desc", 1));
-                break;
-            case Constants.YEARLY:
-                mViewModel.getRepoList(new RepoListRequest("created:2020-05-20", "stars", "desc", 1));
-                break;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }
